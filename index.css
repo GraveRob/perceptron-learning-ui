@@ -1,0 +1,108 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap');
+
+body {
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+    font-family: 'Poppins', sans-serif;
+    flex-direction: column;
+    --size: 50px;
+    font-size: 100%;
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+}
+
+.field {
+    margin: 10px;
+}
+
+.square {
+    
+    width: var(--size);
+    height: var(--size);
+    background-color: white;
+    border: 1px solid black;
+    margin-top: 3px;
+    display:inline-block;
+
+    cursor: pointer;
+}
+
+.square:hover {
+    background-color: gray;
+}
+
+.square:active {
+    background-color: black;
+}
+
+.active {
+    background-color: black;
+    color: white;
+}
+
+.btn {
+    padding: 10px 5px;
+    background-color: white;
+    border: 1px solid black;
+    --btn-clear: 50px;
+    cursor: pointer;
+}
+
+.btn:hover, .num:hover {
+    background-color:grey;
+}
+
+.btn:active, .num:active {
+    background-color:black;
+    color: white;
+}
+
+.btn-decode {
+    width: calc(var(--size) * 3 + 4px * 3.7 - var(--btn-clear) - 5px);
+}
+.btn-clear {
+    width: var(--btn-clear);
+}
+.btn-train {
+    padding-top: 14px;
+    margin-top: 5.4px;
+}
+
+.numberLine {
+    margin: 5px;
+    display: flex;
+    justify-content: center;
+}
+
+.num {
+    display: inline-block;
+    padding: 15px 13px 21px 20px;
+    border: 1px solid black;
+    margin: 5px;
+    
+    --size: 15px;
+    width: var(--size);
+    height: var(--size);
+
+    cursor: pointer;
+}
+
+.field > h1 {
+    text-align: center;
+}
+
+input[type = number] {
+    height: 18.5px;
+    padding: 10px 5px;
+    
+    font-size: 1.2em;
+}
