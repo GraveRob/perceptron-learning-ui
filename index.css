@@ -96,7 +96,7 @@ body {
     cursor: pointer;
 }
 
-.field > h1 {
+.answer, .training > h1 {
     text-align: center;
 }
 

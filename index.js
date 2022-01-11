@@ -27,11 +27,12 @@ function load() {
     const btnCleaner = document.querySelector('.btn-clear');
     const numbers = document.querySelectorAll('.num');
     const btnTrain = document.querySelector('.btn-train');
+    const resultSection = document.querySelector('.result');
 
     addToggleClassByClick(squares);
     addSingleToggleClass(numbers);
 
-    btnDecoder.addEventListener('click', () => ask(decodeNumber(squares), choosedNumber));
+    btnDecoder.addEventListener('click', () => displayAt(resultSection, ask(decodeNumber(squares), choosedNumber)));
     btnCleaner.addEventListener('click', () => clearNumber(squares));
     btnTrain.addEventListener('click', () => train(getTrainingAmount(), choosedNumber));
 }
@@ -81,6 +82,10 @@ function getCodedNumber(number) {
     return number >= 0 && number <= 9 ? NUMBERS[number] : 0;
 }
 
+function displayAt (section, result) {
+    section.innerHTML = `<h2>${result}</h2>`;
+}
+
 //функции управления нейросетью (персептроном)
 
 function proceed(number) {
@@ -127,5 +132,5 @@ function train (amount, number) {
 }
 
 function ask (number) {
-    console.log(`${number} это ${choosedNumber} ? ${proceed(number) ? 'Да' : 'Нет'}`);
+    return (`It's ${choosedNumber} ? ${proceed(number) ? 'Yes' : 'No'}`);
 }
