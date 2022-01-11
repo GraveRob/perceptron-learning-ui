@@ -106,3 +106,33 @@ input[type = number] {
     
     font-size: 1.2em;
 }
+
+.popup {
+    display: none;
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    background-color: white;
+    justify-content: center;
+    overflow-y: auto;
+    flex-wrap: wrap;
+}
+
+.exit {
+    position: fixed;
+    cursor: pointer;
+    font-size: 3em;
+}
+
+.visible {
+    display: flex;
+}
+
+.view {
+    display: flex;
+    justify-content: center;
+}
+
+.resultList {
+    width: 250px;
+}

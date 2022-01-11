@@ -19,6 +19,7 @@ for (let i = 0; i < WEIGHT_AMOUNT; i++) {
 const ROOF = 7;
 const STEP = 1;
 let choosedNumber = 0;
+let totalCount = 0;
 
 document.addEventListener('DOMContentLoaded', load);
 function load() {
@@ -28,13 +29,17 @@ function load() {
     const numbers = document.querySelectorAll('.num');
     const btnTrain = document.querySelector('.btn-train');
     const resultSection = document.querySelector('.result');
-
+    const historyBtn = document.querySelector('.resultList');
+    const historyPopup = document.querySelector('.historyPopup');
+    
     addToggleClassByClick(squares);
     addSingleToggleClass(numbers);
+    addCross(historyPopup);
 
     btnDecoder.addEventListener('click', () => displayAt(resultSection, ask(decodeNumber(squares), choosedNumber)));
     btnCleaner.addEventListener('click', () => clearNumber(squares));
     btnTrain.addEventListener('click', () => train(getTrainingAmount(), choosedNumber));
+    historyBtn.addEventListener('click', () => historyPopup.classList.toggle('visible'));
 }
 
 function addToggleClassByClick(elems) {
@@ -86,6 +91,52 @@ function displayAt (section, result) {
     section.innerHTML = `<h2>${result}</h2>`;
 }
 
+function addCross (element) {
+    const clientRect = element.getBoundingClientRect();
+    const div = document.createElement('div');
+    const innerHTML = `<div class = "exit" style = "right: 2%; top: 2%;">X</div>`;
+
+    div.innerHTML = innerHTML;
+
+    div.addEventListener('click', () => element.classList.toggle('visible'));
+
+    element.append(div);
+}
+
+function paintStep (container, weights, iteration = 0) {
+    const element = `
+    <section class = "field">
+        <h1>Step ${iteration}</h1>
+        <section class="squareLine">
+            <section class="square${ weights[0] > 0 ? ' active' : ''}"></section>
+            <section class="square${ weights[1] > 0 ? ' active' : ''}"></section>
+            <section class="square${ weights[2] > 0 ? ' active' : ''}"></section>
+        </section>
+        <section class="squareLine">
+            <section class="square${ weights[3] > 0 ? ' active' : ''}"></section>
+            <section class="square${ weights[4] > 0 ? ' active' : ''}"></section>
+            <section class="square${ weights[5] > 0 ? ' active' : ''}"></section>
+        </section>
+        <section class="squareLine">
+            <section class="square${ weights[6] > 0 ? ' active' : ''}"></section>
+            <section class="square${ weights[7] > 0 ? ' active' : ''}"></section>
+            <section class="square${ weights[8] > 0 ? ' active' : ''}"></section>
+        </section>
+        <section class="squareLine">
+            <section class="square${ weights[9] > 0 ? ' active' : ''}"></section>
+            <section class="square${ weights[10] > 0 ? ' active' : ''}"></section>
+            <section class="square${ weights[11] > 0 ? ' active' : ''}"></section>
+        </section>
+        <section class="squareLine">
+            <section class="square${ weights[12] > 0 ? ' active' : ''}"></section>
+            <section class="square${ weights[13] > 0 ? ' active' : ''}"></section>
+            <section class="square${ weights[14] > 0 ? ' active' : ''}"></section>
+        </section>
+    </section>`;
+
+    container.insertAdjacentHTML('beforeend', element);
+}
+
 //функции управления нейросетью (персептроном)
 
 function proceed(number) {
@@ -127,7 +178,9 @@ function train (amount, number) {
                 decrease(NUMBERS[option]);
             }
         }
+        paintStep(document.querySelector('.historyPopup'), weights, i + 1 + +totalCount);
     }
+    totalCount += +amount;
     console.log(weights);
 }
 
