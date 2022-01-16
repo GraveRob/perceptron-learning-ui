@@ -104,35 +104,19 @@ function addCross (element) {
 }
 
 function paintStep (container, weights, iteration = 0) {
-    const element = `
+    let element = `
     <section class = "field">
-        <h1>Step ${iteration}</h1>
-        <section class="squareLine">
-            <section class="square${ weights[0] > 0 ? ' active' : ''}"></section>
-            <section class="square${ weights[1] > 0 ? ' active' : ''}"></section>
-            <section class="square${ weights[2] > 0 ? ' active' : ''}"></section>
-        </section>
-        <section class="squareLine">
-            <section class="square${ weights[3] > 0 ? ' active' : ''}"></section>
-            <section class="square${ weights[4] > 0 ? ' active' : ''}"></section>
-            <section class="square${ weights[5] > 0 ? ' active' : ''}"></section>
-        </section>
-        <section class="squareLine">
-            <section class="square${ weights[6] > 0 ? ' active' : ''}"></section>
-            <section class="square${ weights[7] > 0 ? ' active' : ''}"></section>
-            <section class="square${ weights[8] > 0 ? ' active' : ''}"></section>
-        </section>
-        <section class="squareLine">
-            <section class="square${ weights[9] > 0 ? ' active' : ''}"></section>
-            <section class="square${ weights[10] > 0 ? ' active' : ''}"></section>
-            <section class="square${ weights[11] > 0 ? ' active' : ''}"></section>
-        </section>
-        <section class="squareLine">
-            <section class="square${ weights[12] > 0 ? ' active' : ''}"></section>
-            <section class="square${ weights[13] > 0 ? ' active' : ''}"></section>
-            <section class="square${ weights[14] > 0 ? ' active' : ''}"></section>
-        </section>
-    </section>`;
+        <h1>Step ${iteration}</h1>`;
+
+    for(let i = 0; i < 5; i++) {
+        element += `    <section class="squareLine"s>`;
+        for(let j = 0; j < 3; j++) {
+            console.log(weights[j + 3 * i]);
+            element += `        <section class="square" style = "background-color: ${ weights[j + 3 * i] === 0 ? 'rgb(255, 255, 255);' :  weights[j + 3 * i] < 0 ? `rgb(${-weights[j + 3 * i] * 100}, 0, 0);` : `rgb(0, ${weights[j + 3 * i] * 100}, 0`}"></section>`
+        }
+        element += `    </section>`;
+    }
+    element += `</section>`;
 
     container.insertAdjacentHTML('beforeend', element);
 }
