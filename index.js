@@ -11,11 +11,34 @@ const num9 = [1,1,1,1,0,1,1,1,1,0,0,1,1,1,1];
 
 const NUMBERS = [num0, num1, num2, num3, num4, num5, num6, num7, num8, num9];
 
-const weights = [];
+const weights0 = [];
+const weights1 = [];
+const weights2 = [];
+const weights3 = [];
+const weights4 = [];
+const weights5 = [];
+const weights6 = [];
+const weights7 = [];
+const weights8 = [];
+const weights9 = [];
+
 const WEIGHT_AMOUNT = 15;
+
 for (let i = 0; i < WEIGHT_AMOUNT; i++) {
-    weights[i] = 0;
+    weights0[i] = 0;
+    weights1[i] = 0;
+    weights2[i] = 0;
+    weights3[i] = 0;
+    weights4[i] = 0;
+    weights5[i] = 0;
+    weights6[i] = 0;
+    weights7[i] = 0;
+    weights8[i] = 0;
+    weights9[i] = 0;
 }
+
+const WEIGHTS = [weights0, weights1, weights2, weights3, weights4, weights5, weights6, weights7, weights8, weights9];
+
 const ROOF = 7;
 const STEP = 1;
 let choosedNumber = 0;
@@ -72,18 +95,15 @@ function addSingleToggleClass (elems) {
             elems.forEach( elem => {if (elem.classList.contains('active')) elem.classList.remove('active')} )
             elem.classList.add('active');
             choosedNumber = +elem.textContent;
-            console.log(choosedNumber);
         });
     });
 }
 
 function getTrainingAmount() {
-    console.log(document.querySelector('#train-count').value);
     return document.querySelector('#train-count').value;
 }
 
 function getCodedNumber(number) {
-    console.log(NUMBERS[number])
     return number >= 0 && number <= 9 ? NUMBERS[number] : 0;
 }
 
@@ -103,7 +123,7 @@ function addCross (element) {
     element.append(div);
 }
 
-function paintStep (container, weights, iteration = 0) {
+function paintStep (container, weights5, iteration = 0) {
     let element = `
     <section class = "field">
         <h1>Step ${iteration}</h1>`;
@@ -111,8 +131,7 @@ function paintStep (container, weights, iteration = 0) {
     for(let i = 0; i < 5; i++) {
         element += `    <section class="squareLine"s>`;
         for(let j = 0; j < 3; j++) {
-            console.log(weights[j + 3 * i]);
-            element += `        <section class="square" style = "background-color: ${ weights[j + 3 * i] === 0 ? 'rgb(255, 255, 255);' :  weights[j + 3 * i] < 0 ? `rgb(${-weights[j + 3 * i] * 100}, 0, 0);` : `rgb(0, ${weights[j + 3 * i] * 100}, 0`}"></section>`
+            element += `        <section class="square" style = "background-color: ${ weights5[j + 3 * i] === 0 ? 'rgb(255, 255, 255);' :  weights5[j + 3 * i] < 0 ? `rgb(${-weights5[j + 3 * i] * 100}, 0, 0);` : `rgb(0, ${weights5[j + 3 * i] * 100}, 0`}"></section>`
         }
         element += `    </section>`;
     }
@@ -125,31 +144,35 @@ function paintStep (container, weights, iteration = 0) {
 
 function proceed(number) {
     let sum = 0;
+    const currentWeight = WEIGHTS[choosedNumber];
 
     for(let i = 0; i < WEIGHT_AMOUNT; i++) {
-        sum += +number[i] * +weights[i];
+        sum += +number[i] * +currentWeight[i];
     }
 
     return sum > ROOF;
 }
 
 function increase (number) {
+    const currentWeight = WEIGHTS[choosedNumber];
     for (let i = 0; i < WEIGHT_AMOUNT; i++) {
         if (number[i] === 1) {
-            weights[i] += STEP;
+            currentWeight[i] += STEP;
         }
     }
 }
 
 function decrease (number) {
+    const currentWeight = WEIGHTS[choosedNumber];
     for (let i = 0; i < WEIGHT_AMOUNT; i++) {
         if (number[i] === 1) {
-            weights[i] -= STEP;
+            currentWeight[i] -= STEP;
         }
     }
 }
 
 function train (amount, number) {
+    const currentWeight = WEIGHTS[choosedNumber];
     for (let i = 0; i < amount; i++) {
         let option = Math.ceil(Math.random() * 10) - 1;
         if (option === number) {
@@ -162,10 +185,10 @@ function train (amount, number) {
                 decrease(NUMBERS[option]);
             }
         }
-        paintStep(document.querySelector('.historyPopup'), weights, i + 1 + +totalCount);
+        paintStep(document.querySelector('.historyPopup>.wrap'), currentWeight, i + 1 + +totalCount);
     }
     totalCount += +amount;
-    console.log(weights);
+
 }
 
 function ask (number) {

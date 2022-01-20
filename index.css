@@ -115,7 +115,12 @@ input[type = number] {
     background-color: white;
     justify-content: center;
     overflow-y: auto;
+}
+.wrap {
+    justify-content: left;
     flex-wrap: wrap;
+    display: flex;
+    margin: 10px;
 }
 
 .exit {
